@@ -1,4 +1,4 @@
-# Automation MCP（wrapped-playwright）
+# Automation MCP
 
 ```json
 {
@@ -9,6 +9,4 @@
 }
 ```
 
-cwd 欄は空でよい。**相対パス禁止**。
-
-確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`
+確認: `bash environment/scripts/verify-setup.sh`

@@ -1,4 +1,4 @@
 {
   "install": "bash environment/scripts/install.sh",
-  "start": "bash environment/scripts/ensure-deps.sh; bash /opt/playwright-chromium/environment/scripts/generate-secrets.sh 2>/dev/null || bash environment/scripts/generate-secrets.sh; chmod +x /opt/playwright-chromium/environment/scripts/*.sh environment/scripts/*.sh 2>/dev/null || true"
+  "start": "bash environment/scripts/ensure-deps.sh; bash environment/scripts/generate-secrets.sh; chmod +x environment/scripts/*.sh 2>/dev/null || true"
 }
