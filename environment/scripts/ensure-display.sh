@@ -38,5 +38,21 @@ for d in ":1" ":0"; do
   fi
 done
 
+if [ -f "${BASH_SOURCE[0]:-}" ]; then
+  _ensure_script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+  _ensure_script_dir="$(cd "$(dirname "$0")" && pwd)"
+fi
+if [ -x "${_ensure_script_dir}/start-vnc-display.sh" ]; then
+  echo "ensure-display: trying start-vnc-display.sh" >&2
+  if bash "${_ensure_script_dir}/start-vnc-display.sh"; then
+    export DISPLAY="${DISPLAY:-:1}"
+    if wait_xdpyinfo "${DISPLAY}"; then
+      echo "ensure-display: DISPLAY=${DISPLAY} (after VNC start)" >&2
+      return 0 2>/dev/null || exit 0
+    fi
+  fi
+fi
+
 echo "ensure-display: no responsive display (not falling back to :99)" >&2
 return 1 2>/dev/null || exit 1
