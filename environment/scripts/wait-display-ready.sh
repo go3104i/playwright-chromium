@@ -28,12 +28,15 @@ maybe_start_xfce() {
   nohup dbus-launch --exit-with-session /tmp/anyos-xstartup >>/tmp/xfce-start.log 2>&1 &
 }
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 deadline=$((SECONDS + 120))
 while (( SECONDS < deadline )); do
   if desktop_ok; then
     echo "wait-display-ready: OK DISPLAY=${DISPLAY} xfwm4 up" >&2
     exit 0
   fi
+  bash "${SCRIPT_DIR}/start-vnc-display.sh" || true
   maybe_start_xfce
   sleep 2
 done
