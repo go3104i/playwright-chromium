@@ -24,4 +24,6 @@ else
   ln -sf "${WRAPPER}" /usr/local/bin/wrapped-playwright-mcp 2>/dev/null || true
 fi
 
+bash "${ROOT}/environment/scripts/link-opt.sh"
+
 echo "install: OK"

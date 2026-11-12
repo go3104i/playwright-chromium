@@ -1,4 +1,4 @@
 {
   "install": "bash environment/scripts/install.sh",
-  "start": "bash environment/scripts/ensure-deps.sh; bash environment/scripts/generate-secrets.sh; chmod +x environment/scripts/*.sh 2>/dev/null || true"
+  "start": "bash environment/scripts/ensure-deps.sh; bash environment/scripts/generate-secrets.sh; bash environment/scripts/link-opt.sh; chmod +x environment/scripts/*.sh 2>/dev/null || true"
 }
