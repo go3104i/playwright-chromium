@@ -1,21 +1,19 @@
 # playwright-chromium
 
-**Cursor Cloud Agent / Automations 向けの共通 Environment 定義**です。
+図書館など **ブラウザ Automation 用の Cursor Environment**（Chromium + Playwright MCP）。
 
-Chromium は **headed（デフォルト）** で起動します（一部サイトの headless 検知回避）。  
-headless に戻すときは `PLAYWRIGHT_CHROMIUM_HEADLESS=1` を Environment に設定してください。
+- デフォルト **headed**（`PLAYWRIGHT_CHROMIUM_HEADLESS=1` で headless）
+- **Build → Activate** 後、cwd はこのリポジトリルート想定
 
-## Automation MCP（重要）
+## MCP（Automation Customize）
 
 ```json
 {
   "command": "bash",
-  "args": ["/usr/local/bin/wrapped-playwright-mcp"]
+  "args": ["environment/scripts/run-browser-mcp.sh"]
 }
 ```
 
-Build の install が `/opt/playwright-chromium` に実体を置き、上記ランチャーを `/usr/local/bin` に配置します。
+`.cursor/mcp.json` と同じにする。
 
-確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`
-
-詳細: [docs/AUTOMATION_MCP_SETUP.md](docs/AUTOMATION_MCP_SETUP.md)
+確認: `bash environment/scripts/verify-setup.sh`

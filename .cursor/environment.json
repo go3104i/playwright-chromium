@@ -1,4 +1,4 @@
 {
   "install": "bash environment/scripts/install.sh",
-  "start": "bash -lc 'if [ ! -f /opt/playwright-chromium/node_modules/@playwright/mcp/cli.js ] && [ -f /agent/repos/playwright-chromium/environment/scripts/materialize-runtime-tree.sh ] && [ -f /agent/repos/playwright-chromium/node_modules/@playwright/mcp/cli.js ]; then bash /agent/repos/playwright-chromium/environment/scripts/materialize-runtime-tree.sh; fi'; [ -x /opt/playwright-chromium/environment/scripts/generate-secrets.sh ] && bash /opt/playwright-chromium/environment/scripts/generate-secrets.sh || true"
+  "start": "bash environment/scripts/generate-secrets.sh"
 }
