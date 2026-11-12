@@ -20,8 +20,12 @@ fi
 WRAPPER="${ROOT}/environment/scripts/run-browser-mcp.sh"
 if command -v sudo >/dev/null 2>&1; then
   sudo ln -sf "${WRAPPER}" /usr/local/bin/wrapped-playwright-mcp
+  sudo mkdir -p /opt
+  sudo ln -sfn "${ROOT}" /opt/playwright-chromium
 else
   ln -sf "${WRAPPER}" /usr/local/bin/wrapped-playwright-mcp 2>/dev/null || true
+  mkdir -p /opt 2>/dev/null || true
+  ln -sfn "${ROOT}" /opt/playwright-chromium 2>/dev/null || true
 fi
 
 echo "install: OK"
