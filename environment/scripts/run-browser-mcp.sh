@@ -29,8 +29,18 @@ if [ ! -f "${CLI}" ]; then
   exit 1
 fi
 
-export PLAYWRIGHT_MCP_HEADLESS=true
+HEADLESS_FLAG="${PLAYWRIGHT_CHROMIUM_HEADLESS:-${PLAYWRIGHT_MCP_HEADLESS:-0}}"
 export PLAYWRIGHT_MCP_CONFIG="${CONFIG}"
 export PLAYWRIGHT_MCP_SECRETS_FILE="${SECRETS}"
 
-exec node "${CLI}" --headless --config "${CONFIG}" --secrets "${SECRETS}"
+MCP_ARGS=(--config "${CONFIG}" --secrets "${SECRETS}")
+if [ "${HEADLESS_FLAG}" = "1" ] || [ "${HEADLESS_FLAG}" = "true" ]; then
+  export PLAYWRIGHT_MCP_HEADLESS=true
+  MCP_ARGS=(--headless "${MCP_ARGS[@]}")
+else
+  export PLAYWRIGHT_MCP_HEADLESS=false
+  # shellcheck source=ensure-display.sh
+  . "${SCRIPT_DIR}/ensure-display.sh"
+fi
+
+exec node "${CLI}" "${MCP_ARGS[@]}"

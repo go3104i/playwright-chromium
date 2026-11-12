@@ -23,9 +23,6 @@ const path = require('path');
 const __pwRoot = path.resolve(__dirname, '../../..');
 const __pwConfig = path.join(__pwRoot, 'playwright-mcp.json');
 const __pwSecrets = path.join(__pwRoot, 'environment', 'playwright-mcp.secrets.env');
-if (!process.argv.includes('--headless')) {
-  process.argv.push('--headless');
-}
 if (!process.argv.some((arg) => arg.startsWith('--config'))) {
   process.argv.push('--config', __pwConfig);
 }
