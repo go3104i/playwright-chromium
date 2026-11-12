@@ -2,7 +2,9 @@
   "browser": {
     "browserName": "chromium",
     "launchOptions": {
-      "headless": false
+      "headless": false,
+      "channel": "chrome",
+      "args": ["--disable-blink-features=AutomationControlled"]
     }
   },
   "capabilities": ["testing"]

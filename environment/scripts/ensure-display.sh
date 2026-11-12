@@ -13,6 +13,7 @@ for d in ":99" ":1" ":0"; do
     echo "ensure-display: DISPLAY=${DISPLAY}" >&2
     exit 0
   fi
-  done
+ done
 
-echo "ensure-display: DISPLAY not set (headed may fail; set PLAYWRIGHT_CHROMIUM_HEADLESS=1 to fallback)" >&2
+export DISPLAY="${DISPLAY:-:99}"
+echo "ensure-display: fallback DISPLAY=${DISPLAY}" >&2
