@@ -25,11 +25,6 @@ sudo chown -R ubuntu:ubuntu "${DEST}"
 sudo install -d -o ubuntu -g ubuntu -m 700 "${DEST}/environment"
 sudo install -o ubuntu -g ubuntu -m 600 /dev/null "${DEST}/environment/playwright-mcp.secrets.env"
 
-sudo tee /usr/local/bin/wrapped-playwright-mcp >/dev/null <<'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
-exec bash /opt/playwright-chromium/environment/scripts/run-browser-mcp.sh
-EOF
-sudo chmod 755 /usr/local/bin/wrapped-playwright-mcp
+sudo install -m 755 "${ROOT}/environment/scripts/wrapped-playwright-mcp-launcher.sh" /usr/local/bin/wrapped-playwright-mcp
 
 echo "materialize: OK (${DEST}, /usr/local/bin/wrapped-playwright-mcp)"

@@ -1,7 +1,5 @@
 # Automation MCP
 
-推奨（短いパス）:
-
 ```json
 {
   "name": "wrapped-playwright",
@@ -11,14 +9,8 @@
 }
 ```
 
-`/opt/...`（どちらでも可。Build の `install` が **`/opt/playwright-chromium` に実体を rsync**）:
+Dashboard の MCP も **必ず** 上記を使う（`/opt/.../run-browser-mcp.sh` 直指定は起動時にパスが無く失敗しやすい）。
 
-```json
-{
-  "args": ["/opt/playwright-chromium/environment/scripts/run-browser-mcp.sh"]
-}
-```
+**必須:** Environment **playwright-chromium** で Build **成功 → Activate**。
 
-**必須:** Environment **playwright-chromium** で Build が **成功し Activate 済み**。`defaultImageFallback` / `no_finished_builds` のままでは MCP は必ず失敗します。
-
-確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`
+確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`（Build 後）

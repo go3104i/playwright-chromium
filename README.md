@@ -7,14 +7,14 @@ headless に戻すときは `PLAYWRIGHT_CHROMIUM_HEADLESS=1` を Environment に
 
 ## Automation MCP（重要）
 
-タスク用リポだけを checkout しても動くよう、Build は **`/opt/playwright-chromium`** にコピーします。
-
 ```json
 {
   "command": "bash",
-  "args": ["/opt/playwright-chromium/environment/scripts/run-browser-mcp.sh"]
+  "args": ["/usr/local/bin/wrapped-playwright-mcp"]
 }
 ```
+
+Build の install が `/opt/playwright-chromium` に実体を置き、上記ランチャーを `/usr/local/bin` に配置します。
 
 確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`
 
