@@ -18,7 +18,6 @@ if [ -n "${SECRET_LIST}" ]; then
   IFS=',' read -ra KEYS <<<"${SECRET_LIST}"
   for key in "${KEYS[@]}"; do
     key="${key#"${key%%[![:space:]]*}"}"
-    key="${key#"${key%%[![:space:]]*}"}"
     key="${key%"${key##*[![:space:]]}"}"
     [ -n "${key}" ] || continue
     val="${!key:-}"
