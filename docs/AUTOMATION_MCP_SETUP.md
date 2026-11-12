@@ -1,26 +1,22 @@
 # Automation MCP
 
-**Customize（Dashboard）の `wrapped-playwright` と、リポの `.cursor/mcp.json` を同じにする。**
+**起動コマンドはこれだけでよい（Build が入れる）。**
 
 ```json
 {
   "name": "wrapped-playwright",
   "type": "stdio",
   "command": "bash",
-  "args": [
-    "/agent/repos/playwright-chromium/environment/scripts/wrapped-playwright-mcp-launcher.sh"
-  ]
-}
-```
-
-代替（Build が `/usr/local/bin` まで入れた場合）:
-
-```json
-{
   "args": ["/usr/local/bin/wrapped-playwright-mcp"]
 }
 ```
 
-**禁止:** `verify-setup.sh`、`/opt/.../run-browser-mcp.sh` 直指定、`environment/scripts/...` の相対パス。
+Customize（Dashboard）の Arguments も **必ず** 上記と同じにする。
 
-**必須:** Environment **playwright-chromium** の Build **成功 → Activate**（`node_modules` が VM に載ること）。
+## うまくいかないとき
+
+`/usr/local/bin/wrapped-playwright-mcp` が無い = **この実行が Build スナップショット上で起動していない**（`materialize` が走った Activate 済み Build から boot していない）。
+
+その場合 `/agent/repos/...` を Arguments に書いても、多くは **git checkout だけで `node_modules` が無く**同様に失敗する。対処は **Environment の Build 成功 → Activate** と Automation の **Environment = playwright-chromium** の確認。
+
+**禁止:** `verify-setup.sh`（診断用・即終了）、相対パス `environment/scripts/...`

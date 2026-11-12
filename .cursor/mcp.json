@@ -2,9 +2,7 @@
   "mcpServers": {
     "wrapped-playwright": {
       "command": "bash",
-      "args": [
-        "/agent/repos/playwright-chromium/environment/scripts/wrapped-playwright-mcp-launcher.sh"
-      ]
+      "args": ["/usr/local/bin/wrapped-playwright-mcp"]
     }
   }
 }
