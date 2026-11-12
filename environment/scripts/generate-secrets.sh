@@ -40,6 +40,6 @@ fi
 rm -f "${TMP}"
 echo "generate-secrets: wrote ${written} entries (${SECRETS_FILE})" >&2
 
-export PLAYWRIGHT_MCP_HEADLESS="${PLAYWRIGHT_MCP_HEADLESS:-false}"
+export PLAYWRIGHT_MCP_HEADLESS=false
 export PLAYWRIGHT_MCP_CONFIG="${ROOT}/playwright-mcp.json"
 export PLAYWRIGHT_MCP_SECRETS_FILE="${SECRETS_FILE}"
