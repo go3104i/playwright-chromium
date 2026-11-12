@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# エージェント起動時（environment.json の start）に実行する。
-# Environment にバインドされた Secret を dotenv に書き、Playwright MCP の --secrets で読む。
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "${SCRIPT_DIR}/lib-root.sh"
+
+ROOT="${PW_CHROMIUM_ROOT}"
 SECRETS_FILE="${ROOT}/environment/playwright-mcp.secrets.env"
 TMP="${SECRETS_FILE}.tmp.$$"
 
@@ -11,8 +12,6 @@ umask 077
 : >"${TMP}"
 
 written=0
-
-# Cloud Agent: バインド済み Secret 名の一覧が注入される
 SECRET_LIST="${CLOUD_AGENT_INJECTED_SECRET_NAMES:-${CLOUD_AGENT_ALL_SECRET_NAMES:-}}"
 
 if [ -n "${SECRET_LIST}" ]; then
@@ -25,22 +24,15 @@ if [ -n "${SECRET_LIST}" ]; then
     if [ -n "${val}" ]; then
       printf '%s=%s\n' "${key}" "${val}" >>"${TMP}"
       written=$((written + 1))
-    else
-      echo "generate-secrets: skip ${key} (not in env)" >&2
     fi
   done
 else
-  echo "generate-secrets: CLOUD_AGENT_*_SECRET_NAMES unset (local?); leaving dotenv empty" >&2
+  echo "generate-secrets: CLOUD_AGENT_*_SECRET_NAMES unset" >&2
 fi
 
 install -m 600 "${TMP}" "${SECRETS_FILE}"
 rm -f "${TMP}"
-
-if [ "${written}" -eq 0 ]; then
-  echo "generate-secrets: wrote 0 entries to environment/playwright-mcp.secrets.env" >&2
-else
-  echo "generate-secrets: wrote ${written} entries to environment/playwright-mcp.secrets.env" >&2
-fi
+echo "generate-secrets: wrote ${written} entries (${SECRETS_FILE})" >&2
 
 export PLAYWRIGHT_MCP_HEADLESS=true
 export PLAYWRIGHT_MCP_CONFIG="${ROOT}/playwright-mcp.json"

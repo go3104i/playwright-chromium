@@ -1,13 +1,10 @@
 #!/usr/bin/env node
-/**
- * Automation may start Playwright MCP without flags.
- * Cloud VMs have no display; patch the installed CLI so omitted invocations
- * get --headless, repo playwright-mcp.json, and secrets path.
- */
 const fs = require("fs");
 const path = require("path");
 
-const repoRoot = path.resolve(__dirname, "../..");
+const repoRoot = process.env.PW_CHROMIUM_ROOT
+  ? path.resolve(process.env.PW_CHROMIUM_ROOT)
+  : path.resolve(__dirname, "../..");
 const cliPath = path.join(repoRoot, "node_modules", "@playwright", "mcp", "cli.js");
 const configPath = path.join(repoRoot, "playwright-mcp.json");
 const secretsPath = path.join(repoRoot, "environment", "playwright-mcp.secrets.env");
