@@ -1,22 +1,14 @@
-# Automation に wrapped-playwright を登録する
-
-## Automation に stdio MCP を追加
+# Automation MCP（wrapped-playwright）
 
 ```json
 {
   "name": "wrapped-playwright",
   "type": "stdio",
   "command": "bash",
-  "args": ["/opt/playwright-chromium/environment/scripts/run-browser-mcp.sh"]
+  "args": ["/usr/local/bin/wrapped-playwright-mcp"]
 }
 ```
 
-Build 後は install 結果が **`/opt/playwright-chromium`** にあります（タスク用リポだけ checkout しても残る）。
+cwd 欄は空でよい。**相対パス禁止**。
 
-## 確認
-
-```bash
-bash /opt/playwright-chromium/environment/scripts/verify-setup.sh
-```
-
-Build → Activate → Automation **新規実行**。
+確認: `bash /opt/playwright-chromium/environment/scripts/verify-setup.sh`
