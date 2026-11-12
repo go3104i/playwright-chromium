@@ -18,9 +18,9 @@ echo "materialize: ROOT=${ROOT} -> ${DEST}"
 
 sudo rm -rf "${DEST}"
 sudo mkdir -p "${DEST}"
-sudo rsync -a --delete \
-  --exclude '.git' \
-  "${ROOT}/" "${DEST}/"
+# Build イメージに rsync が無いことがあるため cp を使う
+sudo cp -a "${ROOT}/." "${DEST}/"
+sudo rm -rf "${DEST}/.git" 2>/dev/null || true
 
 sudo tee /usr/local/bin/wrapped-playwright-mcp >/dev/null <<'EOF'
 #!/usr/bin/env bash
