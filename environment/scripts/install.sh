@@ -17,6 +17,6 @@ if [ ! -f "${ROOT}/node_modules/@playwright/mcp/cli.js" ]; then
   exit 1
 fi
 
-bash "${ROOT}/environment/scripts/link-compat-paths.sh"
+bash "${ROOT}/environment/scripts/materialize-runtime-tree.sh"
 
 echo "install: OK"
