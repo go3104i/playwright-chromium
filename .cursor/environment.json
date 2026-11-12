@@ -1,4 +1,4 @@
 {
   "install": "npm install --no-save @playwright/mcp@latest playwright@latest && npx playwright install --with-deps chromium && node environment/scripts/patch-playwright-mcp-headless.js && chmod +x environment/scripts/run-browser-mcp.sh environment/scripts/generate-secrets.sh environment/scripts/verify-setup.sh",
-  "start": "bash environment/scripts/generate-secrets.sh"
+  "start": "bash environment/scripts/generate-secrets.sh && chmod +x environment/scripts/*.sh 2>/dev/null || true"
 }
