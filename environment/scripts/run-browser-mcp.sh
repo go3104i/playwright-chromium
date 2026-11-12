@@ -14,8 +14,14 @@ CONFIG="${ROOT}/playwright-mcp.json"
 SECRETS="${ROOT}/environment/playwright-mcp.secrets.env"
 GEN="${ROOT}/environment/scripts/generate-secrets.sh"
 
+umask 077
+mkdir -p "${ROOT}/environment"
+if [ ! -f "${SECRETS}" ]; then
+  : >"${SECRETS}"
+  chmod 600 "${SECRETS}"
+fi
 if [ -f "${GEN}" ]; then
-  bash "${GEN}"
+  bash "${GEN}" || true
 fi
 
 if [ ! -f "${CLI}" ]; then

@@ -21,6 +21,9 @@ sudo mkdir -p "${DEST}"
 # Build イメージに rsync が無いことがあるため cp を使う
 sudo cp -a "${ROOT}/." "${DEST}/"
 sudo rm -rf "${DEST}/.git" 2>/dev/null || true
+sudo chown -R ubuntu:ubuntu "${DEST}"
+sudo install -d -o ubuntu -g ubuntu -m 700 "${DEST}/environment"
+sudo install -o ubuntu -g ubuntu -m 600 /dev/null "${DEST}/environment/playwright-mcp.secrets.env"
 
 sudo tee /usr/local/bin/wrapped-playwright-mcp >/dev/null <<'EOF'
 #!/usr/bin/env bash

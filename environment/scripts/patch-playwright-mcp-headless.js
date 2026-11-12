@@ -6,9 +6,7 @@ const repoRoot = process.env.PW_CHROMIUM_ROOT
   ? path.resolve(process.env.PW_CHROMIUM_ROOT)
   : path.resolve(__dirname, "../..");
 const cliPath = path.join(repoRoot, "node_modules", "@playwright", "mcp", "cli.js");
-const configPath = path.join(repoRoot, "playwright-mcp.json");
-const secretsPath = path.join(repoRoot, "environment", "playwright-mcp.secrets.env");
-const marker = "playwright-chromium: Cloud VM has no headed display";
+const marker = "playwright-chromium: dynamic __pwRoot";
 
 if (!fs.existsSync(cliPath)) {
   process.exit(0);
@@ -22,8 +20,9 @@ if (src.includes(marker)) {
 const needle = "void program.parseAsync(process.argv);";
 const patch = `// ${marker}
 const path = require('path');
-const __pwConfig = ${JSON.stringify(configPath)};
-const __pwSecrets = ${JSON.stringify(secretsPath)};
+const __pwRoot = path.resolve(__dirname, '../../..');
+const __pwConfig = path.join(__pwRoot, 'playwright-mcp.json');
+const __pwSecrets = path.join(__pwRoot, 'environment', 'playwright-mcp.secrets.env');
 if (!process.argv.includes('--headless')) {
   process.argv.push('--headless');
 }

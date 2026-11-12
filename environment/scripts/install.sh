@@ -9,7 +9,6 @@ echo "install: ROOT=${ROOT}"
 npm install --no-save @playwright/mcp@latest playwright@latest
 npx playwright install --with-deps chromium
 
-node environment/scripts/patch-playwright-mcp-headless.js
 chmod +x environment/scripts/*.sh
 
 if [ ! -f "${ROOT}/node_modules/@playwright/mcp/cli.js" ]; then

@@ -8,4 +8,3 @@ echo "ensure-deps: npm install (re-Build recommended)" >&2
 cd "${PW_CHROMIUM_ROOT}"
 npm install --no-save @playwright/mcp@latest playwright@latest
 npx playwright install --with-deps chromium
-node environment/scripts/patch-playwright-mcp-headless.js
