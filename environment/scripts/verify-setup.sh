@@ -12,4 +12,15 @@ fail_msg() { echo "FAIL: $*" >&2; fail=1; }
 echo "INFO: PW_CHROMIUM_ROOT=${ROOT}"
 [[ -f "${SECRETS}" ]] && check "secrets file" || warn "secrets file missing (start で生成)"
 [[ -f "${ROOT}/node_modules/@playwright/mcp/cli.js" ]] && check "cli" || fail_msg "missing @playwright/mcp (Build install)"
+d="${DISPLAY:-:1}"
+if xdpyinfo -display "${d}" >/dev/null 2>&1; then
+  check "xdpyinfo ${d}"
+else
+  warn "xdpyinfo ${d} failed (headed MCP needs display)"
+fi
+if pgrep -x xfwm4 >/dev/null 2>&1; then
+  check "xfwm4"
+else
+  warn "xfwm4 not running"
+fi
 exit "${fail}"

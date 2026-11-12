@@ -41,8 +41,16 @@ if [ "${HEADLESS_FLAG}" = "1" ] || [ "${HEADLESS_FLAG}" = "true" ]; then
   echo "run-browser-mcp: mode=headless (PLAYWRIGHT_CHROMIUM_HEADLESS)" >&2
 else
   export PLAYWRIGHT_MCP_HEADLESS=false
+  export LIBGL_ALWAYS_SOFTWARE="${LIBGL_ALWAYS_SOFTWARE:-1}"
+  export GALLIUM_DRIVER="${GALLIUM_DRIVER:-llvmpipe}"
   # shellcheck source=ensure-display.sh
-  . "${SCRIPT_DIR}/ensure-display.sh"
+  if ! . "${SCRIPT_DIR}/ensure-display.sh"; then
+    echo "run-browser-mcp: ensure-display failed" >&2
+    exit 1
+  fi
+  if [ -f "${SCRIPT_DIR}/wait-display-ready.sh" ]; then
+    bash "${SCRIPT_DIR}/wait-display-ready.sh"
+  fi
   echo "run-browser-mcp: mode=headed DISPLAY=${DISPLAY:-unset}" >&2
 fi
 
