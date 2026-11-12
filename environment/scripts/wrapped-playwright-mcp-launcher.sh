@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
-# Automation MCP 入口（/usr/local/bin に install）。/opt が無くても候補パスを探す。
+# Automation MCP 入口。warm-fork では /agent/repos のみのことが多い。
 set -euo pipefail
+
+try_ensure() {
+  local repo="$1"
+  local ensure="${repo}/environment/scripts/ensure-deps.sh"
+  [ -f "${ensure}" ] || return 0
+  bash "${ensure}"
+}
+
+for repo in /agent/repos/playwright-chromium /opt/playwright-chromium; do
+  [ -d "${repo}" ] || continue
+  try_ensure "${repo}" || true
+done
 
 find_repo_root() {
   local cand
   for cand in \
-    /opt/playwright-chromium \
     /agent/repos/playwright-chromium \
+    /opt/playwright-chromium \
     "${PLAYWRIGHT_CHROMIUM_ROOT:-}"; do
     [ -n "${cand}" ] || continue
     [ -f "${cand}/environment/scripts/run-browser-mcp.sh" ] || continue
@@ -43,7 +55,7 @@ if [ -z "${ROOT:-}" ]; then
 fi
 
 if [ -z "${ROOT:-}" ]; then
-  echo "wrapped-playwright-mcp: FAIL no tree with @playwright/mcp (Environment Build を Activate したか確認)" >&2
+  echo "wrapped-playwright-mcp: FAIL no @playwright/mcp (playwright-chromium Build を Activate)" >&2
   exit 1
 fi
 
