@@ -18,4 +18,16 @@ fi
 
 bash "${ROOT}/environment/scripts/materialize-runtime-tree.sh"
 
+OPT="/opt/playwright-chromium"
+if command -v sudo >/dev/null 2>&1; then
+  sudo mkdir -p /opt
+  sudo rm -rf "${OPT}"
+  sudo cp -a "${ROOT}/." "${OPT}/"
+else
+  mkdir -p /opt
+  rm -rf "${OPT}"
+  cp -a "${ROOT}/." "${OPT}/"
+fi
+echo "install: synced ${OPT}"
+
 echo "install: OK"
