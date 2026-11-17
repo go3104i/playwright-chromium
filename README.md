@@ -30,3 +30,7 @@ bash environment/scripts/verify-setup.sh   # xdpyinfo :1 / xfwm4 が OK
 ```
 
 `PLAYWRIGHT_CHROMIUM_HEADLESS` は設定しない（headed 必須）。
+
+## 多摩市立図書館オートメーション（日付）
+
+返却期限判定の「今日」は **Asia/Tokyo**。**必ず** `bash environment/scripts/today-tokyo.sh` の出力を使う（UTC の `user_info` 日付は使わない）。詳細は [AGENTS.md](./AGENTS.md) と [environment/automation/tama-library-date.md](./environment/automation/tama-library-date.md)。
