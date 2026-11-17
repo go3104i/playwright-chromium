@@ -30,3 +30,7 @@ bash environment/scripts/verify-setup.sh   # xdpyinfo :1 / xfwm4 が OK
 ```
 
 `PLAYWRIGHT_CHROMIUM_HEADLESS` は設定しない（headed 必須）。
+
+## 多摩市立図書館 Automation
+
+cron 用プロンプトの正本: [`docs/TAMA_LIBRARY_AUTOMATION_PROMPT.md`](docs/TAMA_LIBRARY_AUTOMATION_PROMPT.md)（Cursor Automation のテンプレートと同期すること）。
